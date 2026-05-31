@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>送给小汽车的专属医学浪漫</title>
+    <style>
+        :root {
+            --primary-color: #ff6b81;
+            --secondary-color: #70a1ff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ffeaa7 0%, #ffc0cb 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            color: #2f3542;
+        }
+
+        /* 背景音乐控制面板 */
+        .audio-player {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 600px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 107, 129, 0.2);
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #57606f;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        /* 心电图动画效果 */
+        .ecg-box {
+            width: 100%;
+            height: 80px;
+            margin: 20px 0;
+            background: #2f3542;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ecg-line {
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, #2ed573, transparent);
+            animation: moveEcg 3s linear infinite;
+        }
+
+        /* 医学情话卡片 */
+        .medical-card {
+            background: #f1f2f6;
+            border-left: 5px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            text-align: left;
+            border-radius: 0 10px 10px 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            transition: transform 0.3s;
+        }
+
+        .medical-card:hover {
+            transform: translateX(5px);
+        }
+
+        .medical-card strong {
+            color: var(--primary-color);
+        }
+
+        /* 互动按钮 */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            position: relative;
+        }
+
+        .btn {
+            padding: 12px 35px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        #btn-yes {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 107, 129, 0.4);
+        }
+
+        #btn-yes:hover {
+            transform: scale(1.1);
+        }
+
+        #btn-no {
+            background: #ced6e0;
+            color: #57606f;
+            position: relative;
+        }
+
+        /* 飘落爱心动画 */
+        .heart {
+            position: fixed;
+            font-size: 20px;
+            color: rgba(255, 107, 129, 0.6);
+            animation: float 4s linear infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes moveEcg {
+            0% { left: -100%; }
+            100% { left: 0%; }
+        }
+
+        /* 成功弹窗 */
+        .success-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .success-overlay h2 {
+            color: var(--primary-color);
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="audio-player">
+        <span style="font-size: 12px; color: #57606f;">🎵 爱的双重魔力</span>
+        <audio id="bg-music" loop controls src="https://music.apple.com/cn/album/%E7%88%B1%E7%9A%84%E5%8F%8C%E9%87%8D%E9%AD%94%E5%8A%9B/949331317?i=949331327&l=en-GB"></audio>
+    </div>
+
+    <div class="container">
+        <h1>Hi, 小汽车 🚗❤️</h1>
+        <div class="subtitle">
+            这是一份来自<strong>北京大学医学技术类</strong>学长/学弟，<br>
+            专属于<strong>南京医科大学护理专业</strong>你的医学级浪漫。
+        </div>
+
+        <div style="text-align: left; font-size: 0.9rem; color: #a4b0be;">[ 监测到心率异常波动...]</div>
+        <div class="ecg-box">
+            <svg class="ecg-line" viewBox="0 0 200 40" preserveAspectRatio="none">
+                <path d="M0,20 L40,20 L45,10 L50,30 L55,20 L90,20 L95,0 L100,40 L105,20 L140,20 L145,10 L150,30 L155,20 L200,20" 
+                      fill="none" stroke="#2ed573" stroke-width="2"/>
+            </svg>
+        </div>
+
+        <div class="medical-card">
+            🧬 <strong>医学技术说：</strong>我用尽了所有的影像与检验技术，也无法量化我对你的思念。但在我的情感显微镜下，全都是你微笑的晶体。
+        </div>
+
+        <div class="medical-card">
+            🩺 <strong>护理专业说：</strong>未来，你负责用温柔的护理去治愈世界；而我，只想用我所学的一切技术，去作你一辈子的专属健康守护盾。
+        </div>
+
+        <div class="medical-card">
+            ✨ <strong>“爱的双重魔力”：</strong>北大医技 + 南医护理，这是最完美的处方。我的心率，早就因为你而彻底失常了。
+        </div>
+
+        <h3 style="margin-top: 30px; color: #2f3542;">小汽车，你愿意做我的女朋友吗？</h3>
+
+        <div class="btn-group">
+            <button class="btn" id="btn-yes" onclick="acceptLove()">我愿意 💖</button>
+            <button class="btn" id="btn-no" onmouseover="dodgeBtn()" onclick="dodgeBtn()">拒绝 ❌</button>
+        </div>
+    </div>
+
+    <div class="success-overlay" id="successPage">
+        <h2>🎉 表白成功！🎉</h2>
+        <p style="font-size: 1.5rem; color: #57606f;">双重魔力生效！小汽车，往后余生，请多指教。✈️</p>
+        <div style="font-size: 80px;">💑🚗🏥</div>
+        <p style="color: #a4b0be; margin-top: 50px;">（截图发给我，开始我们的故事吧！）</p>
+    </div>
+
+    <script>
+        // 自动生成全屏飘落爱心
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerText = ['❤️', '💖', '🚗', '🩺', '✨'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            heart.style.fontSize = Math.random() * 15 + 15 + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+        setInterval(createHeart, 300);
+
+        // 趣味交互：拒绝按钮闪现躲避（让她没办法拒绝）
+        function dodgeBtn() {
+            const noBtn = document.getElementById('btn-no');
+            // 在容器范围内随机移动
+            const x = Math.random() * 150 - 75;
+            const y = Math.random() * 150 - 75;
+            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        // 点击愿意
+        function acceptLove() {
+            document.getElementById('successPage').style.display = 'flex';
+            // 尝试播放音乐
+            const audio = document.getElementById('bg-music');
+            audio.play().catch(e => console.log("音乐自动播放受阻，需手动点击"));
+        }
+
+        // 点击页面任意地方尝试播放音乐（应对浏览器安全限制）
+        document.body.addEventListener('click', function() {
+            const audio = document.getElementById('bg-music');
+            if(audio.paused) {
+                // audio.play(); // 如果想点击即播放可以取消注释
+            }
+        }, { once: true });
+    </script>
+</body>
+</html>
